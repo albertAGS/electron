@@ -2,8 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Hello World!</title>
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <title>Electron!</title>
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; script-src 'self'"
@@ -12,38 +11,43 @@
       http-equiv="X-Content-Security-Policy"
       content="default-src 'self'; script-src 'self'"
     />
-     <meta 
-       http-equiv="Content-Security-Policy"
-      content="script-src 'self' 'unsafe-inline';" />  
-    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline';"
+    />
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
     <!-- You can also require other files to run in this process -->
     <script defer src="./dist/renderer.js"></script>
   </head>
   <body>
-    <div>
+    <div class="background">
+      <div class="full-screen flex-col">
+        <div class="flex-row">
+          <div class="flex flex-col content-buttons">
+            <label class="flex flex-col button">
+              <span class="span-button">Select an Excel file</span>
+              <input id="excel" type="file" class="d-none" />
+            </label>
+            <p  >
+              <strong>File: </strong><span id="excel-label"></span>
+            </p>
+          </div>
+          <div class="flex flex-col content-buttons">
+            <label class="flex flex-col button">
+              <span class="span-button">Select an Excel file</span>
+              <input id="excel-1" type="file" class="d-none" />
+            </label>
+            <p  >
+              <strong>File: </strong><span id="excel-1-label"></span>
+            </p>
+          </div>
+        </div>
 
-      <div class="drop">
-
+        <button id="db-button" class="hidden button flex flex-col align-self-center">
+          Merge Files
+        </button>
       </div>
 
-      <h1> Database Filter </h1>
-      <form>
-        <label for="pet-select">Choose the data to filter:</label>
-        <select id="mySelect">
-          <option value="0">Select</option>
-          <option value="1">A</option>
-          <option value="2">B</option>
-          <option value="3">C</option>
-        </select>
-        <input type="submit" id="button-submit" value="Submit">
-      </form>
     </div>
-
-    <footer>
-      We are using Node.js 
-      <span id="node-version"></span>, Chromium
-      <span id="chrome-version"></span>, and Electron
-      <span id="electron-version"></span>.
-    </footer>
   </body>
 </html>

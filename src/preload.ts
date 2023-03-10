@@ -14,7 +14,6 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 import { contextBridge, ipcRenderer } from 'electron';
-//variables that will be used to apply the behaviour of the app
-contextBridge.exposeInMainWorld('submit', {
-  toggle: () => ipcRenderer.invoke('submit:clicked'),
+contextBridge.exposeInMainWorld('files', {
+  merge: (channel: string, data: any[]) => ipcRenderer.invoke(channel, data)
 })

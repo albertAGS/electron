@@ -1,8 +1,13 @@
 
 import pandas as pd
+import sys
+
+for input in sys.stdin:
+    line = input
+path = input.split(',')
 
 # Read the CSV file into a pandas DataFrame
-df = pd.read_csv("doc.csv")
+df = pd.read_csv(path[0]) if ('.csv' in path[0]) else pd.read_excel(path[0])
 
 # Create an empty dictionary to store the data
 data_dict = {}
@@ -15,8 +20,9 @@ for index, row in df.iterrows():
     data_dict[fragment] = {'fragment': fragment, 'name': name, 'price': price}
 
 # Read the CSV file into a pandas DataFrame
-df = pd.read_csv("doc2.csv")
-for index, row in df.iterrows():
+secondFile = path[1].replace('.csv\n','.csv')
+dataFrame = pd.read_csv(secondFile) if ('.csv' in secondFile) else pd.read_excel(secondFile)
+for index, row in dataFrame.iterrows():
     fragment = int(str(row['fragment1']) + str(row['fragment2']) + str(row['fragment3']))
     # Merge the data
     data_dict[fragment]['name1'] = row['name1']
@@ -31,10 +37,10 @@ for data in data_dict.values():
 import sqlite3
 
 # Create DB
-open("../example.db", 'w+')
+open("example.db", 'w+')
 
 # Connect to the DB
-conn = sqlite3.connect('../example.db')
+conn = sqlite3.connect('example.db')
 c = conn.cursor()
 
 # Drop table to reset the values

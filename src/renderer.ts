@@ -1,43 +1,43 @@
-// This file is required by the index.html file and will
-// be executed in the renderer process for that (window as any).
-// No Node.js APIs are available in this process unless
-// nodeIntegration is set to true in webPreferences.
-// Use preload.js to selectively enable features
-// needed in the renderer process.
+const excel = document.querySelector('#excel');
+const excel1 = document.querySelector('#excel-1');
+const buttonDB = document.querySelector('#db-button');
+const filename = document.querySelector('#excel-label');
+const filename1 = document.querySelector('#excel-1-label');
 
-//check how can set a select
-// dont reaload page
-document.getElementById('button-submit').addEventListener('click', async () => {
-    const select = document.querySelector('select');
-    console.log(select);
-    (window as any).submit.toggle()
-})
+const dic = new Map<string, string>()
+dic.set(filename.id, null)
+dic.set(filename1.id, null)
 
-//check how works the drag and drop
-//check how can save files
-document.addEventListener('drop', (event) => {
-	event.preventDefault();
-	event.stopPropagation();
+excel.addEventListener('change', (e: Event) => loadImage(e, filename))
+excel1.addEventListener('change', (e: Event) => loadImage(e, filename1))
 
-    console.log(event.dataTransfer.files);
-    
+buttonDB.addEventListener('click', mergeFiles)
 
-	// for (const f of event.dataTransfer.files) {
-	// 	// Using the path attribute to get absolute file path
-	// 	console.log('File Path of dragged files: ', f.path)
-	// }
-});
+function loadImage(e: Event, fileName: Element) {
+  const file = (e.target as HTMLInputElement).files[0]
+  if(!isExcel(file)) {
+    fileName.innerHTML = ''
+    dic.set(fileName.id, null)
+    buttonDB.classList.add("hidden");
+    return
+  }
+  fileName.innerHTML = file.name
+  dic.set(fileName.id, file.path);
+  if(!Array.from(dic.values()).every(it => it)) {
+    return
+  }
+  buttonDB.classList.remove("hidden");
+}
 
-document.addEventListener('dragover', (e) => {
-	e.preventDefault();
-	e.stopPropagation();
-});
 
-document.addEventListener('dragenter', (event) => {
-	console.log('File is in the Drop Space');
-});
+// check file is an excel
+function isExcel(file: File) {
+  const acceptedFiles = ['text/csv', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
+  return file && acceptedFiles.includes(file['type'])
+}
 
-document.addEventListener('dragleave', (event) => {
-	console.log('File has left the Drop Space');
-});
+async function mergeFiles() {
+  await (window as any).files.merge('mergeFiles:clicked', Array.from(dic.values()))
+  // TODO build the new view where the table will be displayed
+}
 
