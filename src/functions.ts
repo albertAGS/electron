@@ -17,22 +17,21 @@ export function getDB() {
   })
 }
 
-export async function createDB(files: string[], callback?: (a: string) => string) {
-  // promisify the pyshell.end() method
-  
-  files.map(it => it.replace(/\\/g, '/')).map(it => 'r'+ it)
+export async function createDB(files: string[]) {
+  const db: any = []
+  files.map(it => it.replace(/\\/g,'/')).map(it => 'r'+ it)
   const pyshell = new PythonShell('./src/createdb/createTable.py')
   const end = util.promisify(pyshell.end).bind(pyshell);
   pyshell.send(files)
   pyshell.on('message',  function (message:string) {
-    // return message
+    db.push(message)
   })
   pyshell.end(async function (err:PythonShellError, code:number, signal:string) {
     if(err) throw(err) 
     console.log(code, signal)
   })
   await end();
-  return true
+  return db
 }
 
 
@@ -66,22 +65,7 @@ export function getMenu(isMac: boolean): (Electron.MenuItem | Electron.MenuItemC
           ]
         : []),
   ];
-  
   return menu
-  return [
-    {
-      label: 'File',
-      submenu: [
-        {
-          label: 'Add file',
-          accelerator: 'Ctrl+O',
-          click() {
-            console.log('add File');
-          },
-        },
-      ],
-    },
-  ];
 }
 
 

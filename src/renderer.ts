@@ -4,26 +4,25 @@ const buttonDB = document.querySelector('#db-button');
 const filename = document.querySelector('#excel-label');
 const filename1 = document.querySelector('#excel-1-label');
 
-const dic = new Map<string, string>()
-dic.set(filename.id, null)
-dic.set(filename1.id, null)
+const mapFiles = new Map<string, string>()
+mapFiles.set(filename.id, null)
+mapFiles.set(filename1.id, null)
 
 excel.addEventListener('change', (e: Event) => loadImage(e, filename))
 excel1.addEventListener('change', (e: Event) => loadImage(e, filename1))
-
 buttonDB.addEventListener('click', mergeFiles)
 
 function loadImage(e: Event, fileName: Element) {
   const file = (e.target as HTMLInputElement).files[0]
   if(!isExcel(file)) {
     fileName.innerHTML = ''
-    dic.set(fileName.id, null)
+    mapFiles.set(fileName.id, null)
     buttonDB.classList.add("hidden");
     return
   }
   fileName.innerHTML = file.name
-  dic.set(fileName.id, file.path);
-  if(!Array.from(dic.values()).every(it => it)) {
+  mapFiles.set(fileName.id, file.path);
+  if(!Array.from(mapFiles.values()).every(it => it)) {
     return
   }
   buttonDB.classList.remove("hidden");
@@ -37,7 +36,20 @@ function isExcel(file: File) {
 }
 
 async function mergeFiles() {
-  await (window as any).files.merge('mergeFiles:clicked', Array.from(dic.values()))
-  // TODO build the new view where the table will be displayed
-}
+  const excelMerged: string[] = await (window as any).files.merge('mergeFiles:clicked', Array.from(mapFiles.values()))
 
+  const excelDic = new Map<string,  Map<string, string | number>>()
+
+  const replace = (val: string[]) => {
+    return val.map(it => it.replace(/[' ]/g, ''))
+  }
+  
+  excelMerged.forEach(it => {
+    const auxMap = new Map<string, string | number>()
+    it.replace(/[{}]/g, '').split(',').forEach(element => {
+      const [key, value] = replace(element.split(':'))
+      auxMap.set(key, value)
+    });
+    excelDic.set(auxMap.get('fragment') as string, auxMap)
+  }) 
+}

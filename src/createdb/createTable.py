@@ -32,31 +32,32 @@ for index, row in dataFrame.iterrows():
 dataToStore = []
 for data in data_dict.values():
     dataToStore.append((data['fragment'],data['name'],data['name1'],data['price'],data['price1'],))
+    print(data)
 
 
-import sqlite3
+# import sqlite3
 
-# Create DB
-open("example.db", 'w+')
+# # Create DB
+# open("example.db", 'w+')
 
-# Connect to the DB
-conn = sqlite3.connect('example.db')
-c = conn.cursor()
+# # Connect to the DB
+# conn = sqlite3.connect('example.db')
+# c = conn.cursor()
 
-# Drop table to reset the values
-c.execute('DROP TABLE IF EXISTS Airbus_Transactions')
+# # Drop table to reset the values
+# c.execute('DROP TABLE IF EXISTS Airbus_Transactions')
 
-# Create table
-c.execute('''CREATE TABLE Airbus_Transactions
-             (fragment text, name text, name1 text, price real, price1 real)''')
+# # Create table
+# c.execute('''CREATE TABLE Airbus_Transactions
+#              (fragment text, name text, name1 text, price real, price1 real)''')
 
-# Insert the rows of data
-c.executemany('INSERT INTO Airbus_Transactions VALUES (?,?,?,?,?)', dataToStore)
+# # Insert the rows of data
+# c.executemany('INSERT INTO Airbus_Transactions VALUES (?,?,?,?,?)', dataToStore)
 
-# Save (commit) the changes
-conn.commit()
+# # Save (commit) the changes
+# conn.commit()
 
-# Print rows
-for row in c.execute('SELECT * FROM Airbus_Transactions ORDER BY price'):
-    print (row)
-conn.close()
+# # Print rows
+# for row in c.execute('SELECT * FROM Airbus_Transactions ORDER BY price'):
+#     print (dataToStore)
+# conn.close()
