@@ -46,8 +46,8 @@ body {
 
 .content-buttons {
   width: 100%;
-  align-items:center;
-  justify-content:center;
+  align-items: center;
+  justify-content: center;
 }
 
 .button {
@@ -61,14 +61,11 @@ body {
   border: 1px solid black;
   background: #b8b8b8;
   text-transform: uppercase;
-}
-
-.button {
   transition: color 0.5s;
 }
 
 .button:hover {
-  color:#005e8f;
+  color: #005e8f;
 }
 
 button.button {
@@ -84,7 +81,7 @@ button.button {
 }
 
 .align-self-center {
-  align-self:center
+  align-self: center;
 }
 
 p {

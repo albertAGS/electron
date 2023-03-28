@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Select sheet</title>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline';"
+    />
+    <link rel="stylesheet" type="text/css" href="./styles-sheet.css" />
+    <!-- You can also require other files to run in this process -->
+    <script defer src="../../dist/sheet-view/sheet.js"></script>
+  </head>
+  <body>
+    <form>
+      <div class="selectForm">
+        <label for="selectSheetL" id="selectSheetLabelL"></label>
+        <select id="selectSheetL">
+          <option>Choose a sheet</option>
+        </select>
+      </div>
+      <div class="selectForm">
+        <label for="selectSheetR" id="selectSheetLabelR"></label>
+        <select id="selectSheetR">
+          <option>Choose a sheet</option>
+        </select>
+      </div>
+      <button class="hidden" id="submit">Submit</button>
+    </form>
+  </body>
+</html>

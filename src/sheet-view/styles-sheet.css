@@ -1,0 +1,66 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: #e5e7eb;
+}
+
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  font-family: Poppins, sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: #015da9;
+  height: 100vh;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  justify-content: center;
+  height: 100%;
+  padding: 15px;
+}
+
+.selectForm {
+  display: flex;
+  gap: 5px;
+}
+
+label {
+  color: white;
+  width: 100%;
+}
+
+select {
+  background: #b8b8b8;
+  width: 100%;
+}
+
+button {
+  width: 50%;
+  padding: 10px;
+  box-shadow: 5px 5px 5px black;
+  transition: 0.5s;
+  cursor: pointer;
+  background: #b8b8b8;
+  margin: 0 auto;
+}
+
+button:hover {
+  background-color: #e5e7eb;
+  color: #005e8f;
+}
+
+.hidden {
+  visibility: hidden;
+}
